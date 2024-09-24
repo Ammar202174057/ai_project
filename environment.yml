@@ -1,0 +1,11 @@
+name: calories
+channels:
+  - defaults
+dependencies:
+  - seaborn
+  - scikit-learn
+  - pandas
+  - numpy
+  - xgboost
+  - matplotlib
+prefix: C:\Users\dell\anaconda3\envs\calories
