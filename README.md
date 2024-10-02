@@ -1,3 +1,8 @@
+## PROJECT TEAM
+    Ammar Abdalkarim Mohammed Daer (202174057)
+    Osamah Abdulbaqi Esmael Abdullah (202174216)
+
+
 ## PROJECT OVERVIEW
 
 This project involves predicting calorie expenditure based on exercise data using a machine learning model. The dataset consists of exercise details and corresponding calorie counts. The goal is to build a regression model to predict calories based on given features.
