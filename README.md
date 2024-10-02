@@ -99,3 +99,15 @@ prediction = model.predict(input_data_reshaped)
 print(prediction)
 ```
 - **New Prediction**: Create a sample input, reshape it, and predict calories using the trained model.
+
+## Steps Explained
+
+1. Data Loading: Load the datasets calories.csv and exercise.csv into Pandas DataFrames.
+2. Data Preparation: Concatenate the data and check for missing values and basic statistics.
+3. Data Visualization: Use Seaborn and Matplotlib to visualize the distributions and correlations in the data.
+4. Data Encoding: Convert categorical variables into numerical values for the model.
+5. Feature Selection: Define feature set X and target variable Y.
+6. Data Splitting: Split the data into training and testing sets.
+7. Model Training: Train an XGBoost Regressor on the training data.
+8. Model Evaluation: Use Mean Absolute Error to evaluate model performance.
+Prediction: Make predictions on new data using the trained model.
