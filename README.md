@@ -1,36 +1,113 @@
-# ai_project
- AI Project for Calories Burnt Prediction using Machine Learning with Python 
+## PROJECT OVERVIEW
 
- by:
- 
- Ammar Abdulkareem Mohammed Daer (202174057)
+This project involves predicting calorie expenditure based on exercise data using a machine learning model. The dataset consists of exercise details and corresponding calorie counts. The goal is to build a regression model to predict calories based on given features.
 
- 
- Osamah Abdulbaqi Esmael Abdullah (202174216)
+## Code Explanation
 
- 
-This Python program predicts the number of calories burnt based on exercise duration, heart rate, and age using a linear regression model. Here's a breakdown of what it does:
+```python
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from xgboost import XGBRegressor
+from sklearn import metrics
+```
+- **Import Libraries**: Import necessary libraries for data manipulation, visualization, and machine learning.
 
-1. **Data Setup:** 
-   - Creates a small dataset with columns for `Duration`, `HeartRate`, `Age`, and `Calories`.
+```python
+calories = pd.read_csv('calories.csv')
+exercise_data = pd.read_csv('exercise.csv')
+```
+- **Load Data**: Read CSV files into Pandas DataFrames.
 
-2. **Feature and Target Selection:**
-   - Uses `Duration`, `HeartRate`, and `Age` as features to predict the `Calories`.
+```python
+calories_data = pd.concat([exercise_data, calories['Calories']], axis=1)
+```
+- **Combine Data**: Concatenate exercise data with calorie information.
 
-3. **Data Splitting:**
-   - Splits the dataset into training and testing sets to evaluate the model's performance.
+```python
+calories_data.shape
+calories_data.info()
+```
+- **Data Overview**: Check the shape and summary information of the dataset.
 
-4. **Model Training:**
-   - Trains a linear regression model on the training data.
+```python
+calories_data.isnull().sum()
+```
+- **Check Missing Values**: Identify any missing values in the dataset.
 
-5. **Prediction:**
-   - Uses the model to predict calorie burn on the test data.
+```python
+calories_data.describe()
+```
+- **Statistical Summary**: Get statistical measures like mean and standard deviation.
 
-6. **Evaluation:**
-   - Calculates the mean squared error between the predicted and actual calorie values to assess accuracy.
+```python
+sns.set()
+sns.histplot(calories_data['Gender'])
+sns.distplot(calories_data['Age'])
+sns.distplot(calories_data['Height'])
+sns.distplot(calories_data['Weight'])
+```
+- **Data Visualization**: Plot distributions for gender, age, height, and weight.
 
-7. **Output:**
-   - Prints the mean squared error and compares predicted calories with actual values for the test set. 
+```python
+correlation = calories_data.corr()
+plt.figure(figsize=(10,10))
+sns.heatmap(correlation, cbar=True, square=True, fmt='.1f', annot=True, annot_kws={'size':8}, cmap='Blues')
+```
+- **Correlation Heatmap**: Visualize correlations between features using a heatmap.
 
-This program demonstrates a basic machine learning workflow using linear regression.
+```python
+calories_data.replace({"Gender":{'male':0,'female':1}}, inplace=True)
+```
+- **Encode Categorical Data**: Convert gender from categorical to numerical values.
 
+```python
+X = calories_data.drop(columns=['User_ID','Calories'], axis=1)
+Y = calories_data['Calories']
+```
+- **Define Features and Target**: Separate features (`X`) and target variable (`Y`).
+
+```python
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=2)
+```
+- **Split Data**: Divide data into training and test sets.
+
+```python
+model = XGBRegressor()
+model.fit(X_train, Y_train)
+```
+- **Train Model**: Initialize and train an XGBoost Regressor model on the training data.
+
+```python
+test_data_prediction = model.predict(X_test)
+```
+- **Make Predictions**: Predict calories for the test data.
+
+```python
+mae = metrics.mean_absolute_error(Y_test, test_data_prediction)
+print("Mean Absolute Error = ", mae)
+```
+- **Evaluate Model**: Calculate and print the Mean Absolute Error of the model.
+
+```python
+input_data = (0,68,190.0,94.0,29.0,105.0,40.8)
+input_data_as_numpy_array = np.asarray(input_data)
+input_data_reshaped = input_data_as_numpy_array.reshape(1,-1)
+prediction = model.predict(input_data_reshaped)
+print(prediction)
+```
+- **New Prediction**: Create a sample input, reshape it, and predict calories using the trained model.
+
+## Steps Explained
+
+1. Data Loading: Load the datasets calories.csv and exercise.csv into Pandas DataFrames.
+2. Data Preparation: Concatenate the data and check for missing values and basic statistics.
+3. Data Visualization: Use Seaborn and Matplotlib to visualize the distributions and correlations in the data.
+4. Data Encoding: Convert categorical variables into numerical values for the model.
+5. Feature Selection: Define feature set X and target variable Y.
+6. Data Splitting: Split the data into training and testing sets.
+7. Model Training: Train an XGBoost Regressor on the training data.
+8. Model Evaluation: Use Mean Absolute Error to evaluate model performance.
+Prediction: Make predictions on new data using the trained model.
