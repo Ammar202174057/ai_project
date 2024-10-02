@@ -116,3 +116,4 @@ print(prediction)
 7. Model Training: Train an XGBoost Regressor on the training data.
 8. Model Evaluation: Use Mean Absolute Error to evaluate model performance.
 Prediction: Make predictions on new data using the trained model.
+![160](https://github.com/user-attachments/assets/7303edb8-9624-4611-9d42-af1d60666e1f)
