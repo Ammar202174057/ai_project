@@ -1,3 +1,7 @@
+Project Overview
+This project involves predicting calorie expenditure based on exercise data using a machine learning model. The dataset consists of exercise details and corresponding calorie counts. The goal is to build a regression model to predict calories based on given features.
+
+Code Explanation
 
 ```python
 import numpy as np
